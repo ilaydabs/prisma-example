@@ -1,0 +1,35 @@
+
+version: '3.8'
+
+services:
+  db:
+    image: "postgres"
+    restart: always
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "123456"
+      POSTGRES_DB: "hello-prisma"
+
+  app:
+    build: ../
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    links:
+      - db
+    environment:
+      
+     # DATABASE_URL: "postgresql://postgres:123456@localhost:5432/hello-prisma?schema=public"
+
+      
+      DATABASE_URL: postgres://postgres:123456@localhost:5432/hello-prisma
+      
+      
+      #PGUSER: "postgres" # PostgreSQL veritabanı kullanıcısı adı
+      #PGPASSWORD: "123456" # PostgreSQL veritabanı kullanıcı şifresi
+      #PGDATABASE: "hello-prisma" # PostgreSQL veritabanı adı
+      #PGHOST: "db" # PostgreSQL veritabanı sunucusunun adı
+      #PGPORT: "5432" # PostgreSQL veritabanı sunucusunun port numarası
+      #PGSSLMODE: "disable" # SSL modunu devre dışı bırakır
+
